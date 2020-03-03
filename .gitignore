@@ -5,3 +5,5 @@ venv*
 *.egg-info
 *token.txt
 *dist
+myenv_test/*
+myenv/*
