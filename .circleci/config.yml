@@ -1,0 +1,26 @@
+version: 2.0
+jobs:
+
+  unittests:
+    working_directory: ~/repo
+    docker:
+      - image: python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Install test dependencies
+          command:  pip install --upgrade pip -r test-requirements.txt # PUT YOUR BASH COMMAND HERE TO INSTALL THE TEST DEPENDENCIES
+      - run:
+          name: Run unit tests
+          command: export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/tests && pytest tests/* -p no:warnings # PUT YOUR COMMAND HERE TO RUN THE UNIT TESTS
+
+
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - unittests:
+          filters:
+            branches:
+              ignore:
+                - master
